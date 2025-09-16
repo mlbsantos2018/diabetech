@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Diabetech - Tipo 1</title>
+  <style>
+    :root {
+      --accent: #48B2E8;
+      --card-bg: #fff;
+      --muted-bg: #f9f9f9;
+      --radius: 12px;
+      --shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+    html,body{height:100%;margin:0;font-family:"Comic Sans MS",cursive,sans-serif;background:#fff;color:#000}
+    header {
+      background: var(--accent);
+      text-align:center;
+      padding: 12px 0; /* header mais fino */
+      border-radius: 0 0 18px 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    header h1{margin:0;color:#fff;font-size:2.2rem}
+
+    .section { padding: 28px 18px; text-align: center; }
+    .card { max-width: 1000px; margin: 0 auto 18px; padding: 20px; background: var(--muted-bg); border-radius: var(--radius); box-shadow: 0 6px 18px rgba(0,0,0,0.04); text-align: justify; font-size:1.02rem; line-height:1.6; }
+    h2{font-size:1.9rem;margin:0 0 12px}
+    h3.title-block{font-size:1.6rem;margin:0 0 8px;font-weight:700}
+
+    /* Sintomas */
+    ul.sintomas{list-style:none;padding:0;margin:0 auto;max-width:680px;text-align:left;font-size:1.05rem}
+    ul.sintomas li{margin:8px 0;padding-left:6px}
+
+    .imgs-row{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+    .imgs-row img{max-width:220px;border-radius:10px;box-shadow:0 6px 12px rgba(0,0,0,0.06)}
+
+    /* GRID com 3 blocos lado a lado */
+    .grid-three {
+      display:flex;
+      gap:22px;
+      justify-content:center;
+      align-items:start;
+      max-width:1100px;
+      margin: 14px auto 6px;
+      padding: 6px;
+      box-sizing:border-box;
+    }
+    .mini-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 18px 16px;
+      width: 320px;           /* bloco pequeno igual no slide */
+      min-width: 220px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    ul.sintomas {
+  list-style: disc;      /* bolinhas padrão */
+  padding-left: 24px;    /* recuo para que as bolinhas não fiquem grudadas no card */
+  margin: 0 auto;
+  max-width: 680px;
+  text-align: left;
+  font-size: 1.05rem;
+}
+
+ul.sintomas li {
+  margin: 8px 0;
+}
+    .mini-card h4 { font-size:1.5rem; margin: 0 0 10px; font-weight:700; }
+    .mini-card p { margin:0; font-size:1.02rem; line-height:1.5; }
+
+    /* imagens nos cantos abaixo dos blocos (simples alinhamento) */
+    .corner-images {
+      max-width:1100px;
+      margin: 8px auto 26px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:10px;
+      padding:0 6px;
+      box-sizing:border-box;
+    }
+    .corner-images img { width: 220px; max-width:28%; border-radius:10px; }
+
+    /* responsivo: empilha verticalmente em telas pequenas */
+    @media (max-width: 880px) {
+      .grid-three { flex-direction: column; align-items:center; }
+      .mini-card { width: 92%; max-width:560px; }
+      .corner-images { flex-direction:row; justify-content:center; gap:14px; }
+      .corner-images img { width: 40%; max-width:260px; }
+      header h1 { font-size: 1.9rem; }
+      h2 { font-size:1.5rem; }
+    }
+
+    .back { display:inline-block;margin-top:20px;text-decoration:none;background:var(--accent);color:#fff;padding:10px 18px;border-radius:20px;transition:0.25s }
+    .back:hover{background:#2b8ec2}
+  </style>
+</head>
+<body>
+  <header><h1>DIABETECH</h1></header>
+
+  <!-- Intro / definição -->
+  <section class="section">
+    <h2>Diabetes Tipo 1</h2>
+    <div class="card">
+      <p><strong>É uma doença autoimune</strong> em que o próprio corpo ataca as células produtoras de insulina no pâncreas. O pâncreas produz pouca ou nenhuma insulina, um hormônio essencial para que a glicose entre nas células e gere energia. A falta de insulina faz com que a glicose se acumule na corrente sanguínea, aumentando os níveis de açúcar.</p>
+
+      <h3 style="margin-top:32px;text-align:center;font-size:1.4rem">Você sabe quem pode ter?</h3>
+      <p style="text-align:center;font-weight:bold;margin-top:12px">Geralmente é diagnosticada em crianças e adolescentes, mas pode afetar adultos de qualquer idade.</p>
+    </div>
+  </section>
+
+<!-- Sintomas em lista -->
+<section class="section" aria-labelledby="sintomas-title">
+    <h2 id="sintomas-title">Sintomas</h2>
+    <div class="card">
+      <ul class="sintomas">
+        <li>Vontade de urinar frequentemente</li>
+        <li>Fome frequente</li>
+        <li>Sede constante</li>
+        <li>Perda de peso</li>
+        <li>Fraqueza</li>
+        <li>Fadiga</li>
+        <li>Nervosismo</li>
+        <li>Mudança de humor</li>
+        <li>Náuseas</li>
+        <li>Vômito</li>
+      </ul>
+    </div>
+  </section>
+  
+  
+
+  <!-- Três blocos lado a lado (pequenos) -->
+  <section class="section" aria-label="Informações rápidas">
+    <div class="grid-three">
+      <div class="mini-card" aria-labelledby="tratamentos-title">
+        <h4 id="tratamentos-title">Tratamentos</h4>
+        <p>Doses de insulina podem ser aplicadas para suprir a carência do hormônio. Outros medicamentos, alimentação balanceada e prática regular de atividade física também podem fazer parte da terapia.</p>
+      </div>
+
+      <div class="mini-card" aria-labelledby="contagiosa-title">
+        <h4 id="contagiosa-title">Contagiosa?</h4>
+        <p>O diabetes tipo 1 <strong>não é contagioso</strong>.</p>
+      </div>
+
+      <div class="mini-card" aria-labelledby="duracao-title">
+        <h4 id="duracao-title">Duração</h4>
+        <p>O diabetes tipo 1 é uma condição que acompanha a pessoa por toda a vida.</p>
+      </div>
+    </div>
+
+    <!-- Imagens de canto / decoração (coloque na mesma pasta) -->
+    <div class="corner-images" aria-hidden="true">
+      <img src="52affab9-4de9-490f-83eb-e3ccd43ff1d2.png" alt="ilustração canto esquerdo">
+      <img src="eaa074fb-4a52-4039-9d5a-2283bb8a76fc.png" alt="ilustração canto direito">
+    </div>
+  </section>
+
+  <div style="text-align:center;margin-bottom:36px">
+    <a class="back" href="index.html">⬅ Voltar</a>
+  </div>
+
+  <footer style="text-align:center;padding:14px;background:#f0f0f0">
+    <small>© 2025 Diabetech</small>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Diabetech - Tipo 2</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --accent: #48B2E8;
+            --card-bg: #fff;
+            --muted-bg: #f9f9f9;
+            --radius: 12px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            background: #fff;
+            color: #000
+        }
+
+        .graph-card {
+            max-width: 600px;
+            height: 320px;
+            margin: 0 auto 24px;
+            background: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+        }
+
+        .graph-card canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .graph-section {
+            text-align: center;
+            padding: 20px 14px;
+        }
+
+        .graph-section h2 {
+            margin-bottom: 14px;
+        }
+
+        header {
+            background: var(--accent);
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 0 0 18px 18px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        header h1 {
+            margin: 0;
+            color: #fff;
+            font-size: 2.2rem
+        }
+
+        .section {
+            padding: 28px 18px;
+            text-align: center;
+        }
+
+        .card {
+            max-width: 1000px;
+            margin: 0 auto 18px;
+            padding: 20px;
+            background: var(--muted-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            text-align: justify;
+            font-size: 1.02rem;
+            line-height: 1.6;
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            margin: 0 0 12px
+        }
+
+        h3.title-block {
+            font-size: 1.6rem;
+            margin: 0 0 8px;
+            font-weight: 700
+        }
+
+        ul.sintomas {
+            list-style: disc;
+            padding-left: 24px;
+            margin: 0 auto;
+            max-width: 680px;
+            text-align: left;
+            font-size: 1.05rem;
+        }
+
+        ul.sintomas li {
+            margin: 8px 0;
+        }
+
+        .grid-three {
+            display: flex;
+            gap: 22px;
+            justify-content: center;
+            align-items: start;
+            max-width: 1100px;
+            margin: 14px auto 6px;
+            padding: 6px;
+            box-sizing: border-box;
+        }
+
+        .mini-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 18px 16px;
+            width: 320px;
+            min-width: 220px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .mini-card h4 {
+            font-size: 1.5rem;
+            margin: 0 0 10px;
+            font-weight: 700;
+        }
+
+        .mini-card p {
+            margin: 0;
+            font-size: 1.02rem;
+            line-height: 1.5;
+        }
+
+        .corner-images {
+            max-width: 1100px;
+            margin: 8px auto 26px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 10px;
+            padding: 0 6px;
+            box-sizing: border-box;
+        }
+
+        .corner-images img {
+            width: 220px;
+            max-width: 28%;
+            border-radius: 10px;
+        }
+
+        .graph-section {
+            max-width: 1000px;
+            margin: 32px auto;
+            padding: 20px;
+            background: var(--muted-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 880px) {
+            .grid-three {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mini-card {
+                width: 92%;
+                max-width: 560px;
+            }
+
+            .corner-images {
+                flex-direction: row;
+                justify-content: center;
+                gap: 14px;
+            }
+
+            .corner-images img {
+                width: 40%;
+                max-width: 260px;
+            }
+
+            header h1 {
+                font-size: 1.9rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 20px;
+            transition: 0.25s
+        }
+
+        .back:hover {
+            background: #2b8ec2
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>DIABETECH</h1>
+    </header>
+
+    <!-- Intro / definição -->
+    <section class="section">
+        <h2>Diabetes Tipo 2</h2>
+        <div class="card">
+            <p><strong>O Diabetes Mellitus tipo 2 (DM2)</strong> é uma doença metabólica crônica caracterizada pela
+                resistência à insulina e deficiência progressiva da secreção pancreática. Representa cerca de 90% dos
+                casos de diabetes e é considerado problema de saúde pública no Brasil, associado a obesidade,
+                sedentarismo e envelhecimento da população.</p>
+            <h3 style="margin-top:32px;text-align:center;font-size:1.4rem">Você sabe quem pode ter?</h3>
+            <p>Costuma ser assintomática, e as manifestações
+                ocorrem geralmente na idade adulta (após os 40 anos) com evolução lenta dos sintomas. Ocorre
+                principalmente em pessoas com excesso de peso, comportamento sedentário, hábitos alimentares não
+                saudáveis e história familiar de diabetes.</p>
+        </div>
+    </section>
+
+    <!-- Sintomas em lista -->
+    <section class="section" aria-labelledby="sintomas-title">
+        <h2 id="sintomas-title">Sintomas</h2>
+        <div class="card">
+            <ul class="sintomas">
+                <li>Fome frequente</li>
+                <li>Sede constante</li>
+                <li>Formigamento nos pés e nas mãos</li>
+                <li>Vontade de urinar frequentemente</li>
+                <li>Infecções frequentes na bexiga, rins, pele e infecção na pele</li>
+                <li>Feridas demoram a cicatrizar</li>
+                <li>Visão embaçada</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Três blocos lado a lado -->
+    <section class="section" aria-label="Informações rápidas">
+        <div class="grid-three">
+            <div class="mini-card">
+                <h4>Tratamentos:</h4>
+                <p><strong>Não farmacológico:</strong> alimentação saudável, atividade física, educação em
+                    saúde.<br><br>
+                    <strong>Farmacológico:</strong> primeira linha metformina; se necessário, outras classes incluindo
+                    dapagliflozina; insulina para falha terapêutica ou hiperglicemia grave.
+                </p>
+            </div>
+
+            <div class="mini-card">
+                <h4>Contagiosa?</h4>
+                <p>Não, o diabetes tipo 2 não é transmissível. Ele não passa de pessoa para pessoa como uma doença
+                    infecciosa. O diabetes tipo 2 é uma condição crônica não transmissível, geralmente associada a
+                    fatores como predisposição genética, estilo de vida (como obesidade e sedentarismo) e resistência à
+                    insulina.</p>
+            </div>
+
+            <div class="mini-card">
+                <h4>Duração:</h4>
+                <p>O DM2 é uma condição crônica prevalente, com complicações graves se não controlado. O manejo adequado
+                    envolve abordagem multiprofissional, monitoramento contínuo, tratamento farmacológico e mudanças no
+                    estilo de vida, com suporte dos protocolos e materiais educativos oficiais.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Somente duas imagens -->
+    <div class="corner-images" aria-hidden="true">
+        <img src="b1865ed3-15c1-48e7-8564-8564ad313bb2.png" alt="ilustração esquerda">
+        <img src="f37dee89-3d61-49d4-a983-47e08f9ba78e.png" alt="ilustração direita">
+    </div>
+
+    <!-- Seção Idade -->
+    <section class="graph-section">
+        <h2>Idade e porcentagem de pessoas com diabetes tipo 2</h2>
+        <div class="graph-card">
+            <canvas id="idadeChart"></canvas>
+        </div>
+    </section>
+
+    <!-- Seção diferença -->
+    <section class="graph-section">
+        <h2>Você sabe a diferença da diabetes tipo 1 e tipo 2?</h2>
+        <p>A diferença principal é a causa: diabetes tipo 1 é uma doença autoimune em que o corpo ataca
+            as células do pâncreas que produzem insulina, resultando na sua falta. Já no tipo 2, o
+            organismo produz insulina, mas não a usa de forma eficaz (resistência à insulina) ou em
+            quantidade suficiente. O tipo 1 precisa de injeções diárias de insulina, enquanto o tipo 2
+            pode ser tratado com dieta, exercício, medicamentos orais e, em alguns casos, insulina.</p>
+    </section>
+
+    <!-- Seção você sabia -->
+    <section class="graph-section">
+        <h2>Você sabia?</h2>
+        <p>O diabetes tipo 2 representa cerca de 90% dos casos, enquanto o tipo 1 corresponde a 5-10%,
+            estimando-se aproximadamente 600 mil pessoas afetadas.</p>
+        <div class="graph-card">
+            <canvas id="sabiaChart"></canvas>
+        </div>
+    </section>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Gráfico 1 - Idade
+        new Chart(document.getElementById('idadeChart'), {
+            type: 'bar',
+            data: {
+                labels: ['40-49', '50-59', '60-69', '70+'],
+                datasets: [{
+                    label: 'Porcentagem (%)',
+                    data: [12, 18, 25, 30],
+                    backgroundColor: '#48B2E8'
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // Gráfico 3 - Você sabia
+        new Chart(document.getElementById('sabiaChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Tipo 1', 'Tipo 2'],
+                datasets: [{
+                    data: [8, 92],
+                    backgroundColor: ['#FF9F40', '#4BC0C0']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                let total = context.chart._metasets[0].total;
+                                let value = context.raw;
+                                let percentage = ((value / total) * 100).toFixed(1) + "%";
+                                return context.label + ': ' + percentage;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <div style="text-align:center;margin-bottom:36px">
+        <a class="back" href="index.html">⬅ Voltar</a>
+    </div>
+
+    <footer style="text-align:center;padding:14px;background:#f0f0f0">
+        <small>© 2025 Diabetech</small>
+    </footer>
+</body>
+
+</html>

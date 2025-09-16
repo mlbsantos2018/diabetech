@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diabetech</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: #fff;
+      color: #000;
+    }
+
+    header {
+      background: #48B2E8;
+      text-align: center;
+      padding: 15px 0;
+      /* antes era 25px */
+      border-radius: 0 0 20px 20px;
+      /* também reduzi um pouco o arredondamento */
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      /* ligeiramente menor que os 3rem anteriores */
+      font-weight: bold;
+      color: #fff;
+
+    }
+
+    .info-circle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 35px;
+      max-width: 600px;
+      margin: 40px auto;
+      justify-items: center;
+    }
+
+    .info-circle-grid a {
+      text-decoration: none;
+    }
+
+    .info-circle-grid button {
+      background: linear-gradient(135deg, #48B2E8, #2b8ec2);
+      border: none;
+      border-radius: 50%;
+      width: 110px;
+      /* antes 140px */
+      height: 110px;
+      /* antes 140px */
+      font-size: 0.9rem;
+      /* texto ligeiramente menor */
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .info-circle-grid button:hover {
+      transform: scale(1.15);
+      background: linear-gradient(135deg, #2b8ec2, #48B2E8);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    .info-circle-column {
+      display: center;
+      flex-direction: row;
+      align-items: center;
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .info-circle-column a {
+      text-decoration: none;
+    }
+
+    .info-circle-column button {
+      background: linear-gradient(135deg, #48B2E8, #2b8ec2);
+      border: none;
+      border-radius: 50%;
+      width: 105px;
+      height: 105px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .info-circle-column button:hover {
+      transform: scale(1.15);
+      background: linear-gradient(135deg, #2b8ec2, #48B2E8);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    .section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-size: 1rem;
+      line-height: 1.5;
+      text-align: justify;
+    }
+
+    .did-you-know {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+
+    .did-you-know-text {
+      max-width: 350px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .chart {
+      width: 250px !important;
+      height: 250px !important;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+      justify-items: center;
+    }
+
+    .info-grid a {
+      text-decoration: none;
+    }
+
+    .info-grid button {
+      background: #48B2E8;
+      border: none;
+      border-radius: 30px 5px 30px 5px;
+      padding: 15px 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 200px;
+      text-align: center;
+    }
+
+    .info-grid button:hover {
+      background: #2b8ec2;
+    }
+
+    /* Responsivo para telas menores */
+    @media (max-width: 768px) {
+      .info-circle-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .info-circle-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #f0f0f0;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>DIABETECH</h1>
+  </header>
+
+  <!-- seção explicação -->
+  <section class="section">
+    <h2>Vamos falar primeiro o que é Diabetes</h2>
+    <div class="card">
+      <p><strong>Diabetes Mellitus (DM)</strong> é uma síndrome metabólica de origem múltipla, decorrente da falta de
+        insulina e/ou da incapacidade e/ou falta de insulina exercer adequadamente seus efeitos, caracterizando altas
+        taxa de açúcar no sangue (hiperglicemia) de forma permanente. A insulina é produzida pelo pâncreas, sendo
+        responsável pela manutenção do metabolismo (quebra da glicose) para permitir que tenhamos energia para manter o
+        organismo em funcionamento.</p>
+    </div>
+  </section>
+
+  <!-- seção você sabia -->
+  <section class="section">
+    <div class="did-you-know">
+      <div class="did-you-know-text">
+        <p><strong>Você sabia?</strong></p>
+        <p>O Brasil possui cerca de <strong>20 milhões de pessoas</strong> vivendo com diabetes, equivalente a
+          aproximadamente <strong>10% da população.</strong></p>
+      </div>
+      <canvas id="diabetesChart" class="chart"></canvas>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Escolha qual tipo de informações você quer saber</h2>
+    <div class="info-circle-column">
+      <a href="tipo1.html"><button>Tipo 1</button></a>
+      <a href="tipo2.html"><button>Tipo 2</button></a>
+      <a href="gestacional.html"><button>Gestacional</button></a>
+      <a href="secundario.html"><button>Secundário</button></a>
+      <a href="neonatal.html"><button>Neonatal</button></a>
+      <a href="monogenico.html"><button>Monogênico</button></a>
+      <a href="prediabetes.html"><button>Pré-diabetes</button></a>
+      <a href="insulina.html"><button>Insulina</button></a>
+      <a href="jogo.html"><button>Jogo Diabetech</button></a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Diabetech</p>
+  </footer>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('diabetesChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['População com Diabetes (10%)', 'População sem Diabetes (90%)'],
+        datasets: [{
+          data: [10, 90],
+          backgroundColor: ['#5bd4e6', '#3aaed9'],
+        }]
+      },
+      options: {
+        responsive: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { font: { size: 12 } }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
