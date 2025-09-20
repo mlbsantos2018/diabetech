@@ -1,288 +1,373 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Diabetech - Jogo</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-@font-face {
-    font-family: 'Comic Sans MS';
-    src: url('fonts/ComicSansMS.ttf') format('truetype');
-}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Diabetech - Jogo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Comic Sans MS';
+            src: url('fonts/ComicSansMS.ttf') format('truetype');
+        }
 
-:root {
-    --accent: #48B2E8;
-    --radius: 12px;
-}
+        :root {
+            --accent: #48B2E8;
+            --radius: 12px;
+        }
 
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: 'Comic Sans MS', sans-serif;
-    background: linear-gradient(160deg, #a8edea, #fed6e3);
-    backdrop-filter: blur(20px);
-}
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Comic Sans MS', sans-serif;
+            background: linear-gradient(160deg, #a8edea, #fed6e3);
+            backdrop-filter: blur(20px);
+        }
 
-header {
-    background: var(--accent);
-    text-align: center;
-    padding: 12px 0;
-    border-radius: 0 0 18px 18px;
-}
+        header {
+            background: var(--accent);
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 0 0 18px 18px;
+        }
 
-header h1 { margin: 0; color: #fff; font-size: 2.2rem; }
+        header h1 {
+            margin: 0;
+            color: #fff;
+            font-size: 2.2rem;
+        }
 
-#gameArea {
-    position: relative;
-    width: 90%;
-    max-width: 450px;
-    height: 600px;
-    margin: 20px auto;
-    border-radius: var(--radius);
-    overflow: hidden;
-    background: url('img/background_jogo.png') center/cover no-repeat;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
+        #gameArea {
+            position: relative;
+            width: 90%;
+            max-width: 450px;
+            height: 600px;
+            margin: 20px auto;
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: url('img/background_jogo.png') center/cover no-repeat;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
 
-#score {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #fff;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
-    z-index: 10;
-    transition: transform 0.2s ease;
-}
+        #score {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+            transition: transform 0.2s ease;
+        }
 
-#basket {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    width: 70px;
-    height: 50px;
-    transform: translateX(-50%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
+        #basket {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            width: 70px;
+            height: 50px;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
 
-.fallingObject {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 35px;
-    user-select: none;
-    border-radius: 50%;
-    transform: translateY(-80px);
-    z-index: 5;
-    transition: transform 0.2s;
-}
+        .fallingObject {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            user-select: none;
+            border-radius: 50%;
+            transform: translateY(-80px);
+            z-index: 5;
+            transition: transform 0.2s;
+        }
 
-.fruit { background: #ff9f43; color: #fff; }
-.fastFood { background: #feca57; color: #000; }
+        .fruit {
+            background: #ff9f43;
+            color: #fff;
+        }
 
-#startScreen {
-    position: absolute;
-    top: 0; left:0; width:100%; height:100%;
-    background: url('img/background_iniciar.png') center/cover no-repeat;
-    display:flex; justify-content:flex-end; align-items:center;
-    flex-direction: column;
-    padding-bottom: 40px;
-    z-index:20;
-    transition: opacity 0.5s;
-}
+        .fastFood {
+            background: #feca57;
+            color: #000;
+        }
 
-#startBtn { border:none; background:none; cursor:pointer; transition: transform 0.3s ease; }
-#startBtn img { width:200px; max-width:80%; height:auto; }
-#startBtn:hover, #startBtn:active { transform: scale(1.2); }
+        #startScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('img/background_iniciar.png') center/cover no-repeat;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            flex-direction: column;
+            padding-bottom: 40px;
+            z-index: 20;
+            transition: opacity 0.5s;
+        }
 
-#gameOverScreen {
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    background:#000; display:none; flex-direction:column; justify-content:center; align-items:center; z-index:30;
-}
-#gameOverScreen img { max-width:60%; height:auto; margin-bottom:20px; }
-#retryBtn { border:none; background: var(--accent); color:#fff; padding:12px 22px; font-size:18px; border-radius:20px; cursor:pointer; transition: transform 0.3s, background 0.3s; }
-#retryBtn:hover { transform:scale(1.1); background:#2b8ec2; }
+        #startScreen button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
 
-/* Botão voltar */
-a.back {
-    display: inline-block;
-    margin: 20px auto;
-    padding: 10px 18px;
-    background: var(--accent);
-    color: #fff;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: bold;
-    transition: background 0.3s, transform 0.3s;
-}
-a.back:hover { background:#2b8ec2; transform: scale(1.05); }
+        #startScreen button img {
+            width: 200px;
+            max-width: 80%;
+            height: auto;
+        }
 
-/* Tremor */
-@keyframes shake {
-  0% { transform: translate(0px, 0px); }
-  20% { transform: translate(-10px, 0); }
-  40% { transform: translate(10px, 0); }
-  60% { transform: translate(-10px, 0); }
-  80% { transform: translate(10px, 0); }
-  100% { transform: translate(0px, 0); }
-}
+        #startScreen button:hover,
+        #startScreen button:active {
+            transform: scale(1.2);
+        }
 
-.shake {
-  animation: shake 0.5s;
-}
+        #gameOverScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+        }
 
-@media(max-width:500px) {
-    #gameArea{height:500px;}
-    #basket{width:60px;height:45px;}
-    .fallingObject{width:50px;height:50px;font-size:28px;}
-    #startBtn img{width:150px;}
-    #gameOverScreen img{max-width:80%;}
-}
-</style>
+        #gameOverScreen img {
+            max-width: 60%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        #retryBtn {
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            padding: 12px 22px;
+            font-size: 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        #retryBtn:hover {
+            transform: scale(1.1);
+            background: #2b8ec2;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(0px, 0px); }
+            20% { transform: translate(-10px, 0); }
+            40% { transform: translate(10px, 0); }
+            60% { transform: translate(-10px, 0); }
+            80% { transform: translate(10px, 0); }
+            100% { transform: translate(0px, 0); }
+        }
+
+        .shake { animation: shake 0.5s; }
+
+        @media(max-width:500px) {
+            #gameArea { height: 500px; }
+            #basket { width: 60px; height: 45px; }
+            .fallingObject { width: 50px; height: 50px; font-size: 28px; }
+            #startScreen button img { width: 150px; }
+            #gameOverScreen img { max-width: 80%; }
+        }
+    </style>
 </head>
+
 <body>
-<header>
-<h1>DIABETECH</h1>
-</header>
+    <header>
+        <h1>DIABETECH</h1>
+    </header>
 
-<section class="section">
-<div id="gameArea">
-    <div id="score">Pontuação: 0</div>
-    <img id="basket" src="img/cesta.png" alt="Cesta">
+    <section class="section">
+        <div id="gameArea">
+            <div id="score">Pontuação: 0</div>
+            <img id="basket" src="img/cesta.png" alt="Cesta">
 
-    <div id="startScreen">
-        <button id="startBtn"><img src="img/startButton.png" alt="Iniciar Jogo"></button>
-    </div>
+            <div id="startScreen">
+                <div style="
+                    position: absolute;
+                    bottom: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    gap: 0px;
+                ">
+                    <button id="startBtn">
+                        <img src="img/startButton.png" alt="Iniciar Jogo" style="width: 180px; height: auto;">
+                    </button>
 
-    <div id="gameOverScreen">
-        <img src="img/gameover.png" alt="Game Over">
-        <button id="retryBtn">Tentar Novamente</button>
-    </div>
-</div>
+                    <button id="exitBtn">
+                        <img src="img/startButton.png" alt="Sair do Jogo" style="width: 180px; height: auto; filter: brightness(0.7);">
+                    </button>
+                </div>
+            </div>
 
-<div class="card">
-<p>Use as setas do teclado ou toque na tela (mobile) para mover a cesta e capturar apenas as frutas. Se pegar algum fast food, o jogo termina.</p>
-</div>
+            <div id="gameOverScreen">
+                <img src="img/gameover.png" alt="Game Over">
+                <button id="retryBtn">Tentar Novamente</button>
+            </div>
+        </div>
+    </section>
 
-<a class="back" href="index.html">⬅ Voltar</a>
-</section>
+    <footer style="text-align:center;padding:14px;background:#f0f0f0">
+        <small>© 2025 Diabetech</small>
+    </footer>
 
-<footer style="text-align:center;padding:14px;background:#f0f0f0">
-<small>© 2025 Diabetech</small>
-</footer>
+    <script>
+        const gameArea = document.getElementById('gameArea');
+        const basket = document.getElementById('basket');
+        const scoreDisplay = document.getElementById('score');
+        const startScreen = document.getElementById('startScreen');
+        const startBtn = document.getElementById('startBtn');
+        const exitBtn = document.getElementById('exitBtn');
+        const gameOverScreen = document.getElementById('gameOverScreen');
+        const retryBtn = document.getElementById('retryBtn');
 
-<script>
-const gameArea = document.getElementById('gameArea');
-const basket = document.getElementById('basket');
-const scoreDisplay = document.getElementById('score');
-const startScreen = document.getElementById('startScreen');
-const startBtn = document.getElementById('startBtn');
-const gameOverScreen = document.getElementById('gameOverScreen');
-const retryBtn = document.getElementById('retryBtn');
+        // Sons
+        const bgMusic = new Audio('sounds/background_music.mp3');
+        bgMusic.loop = true; bgMusic.volume = 0.3;
+        window.addEventListener('load', () => { bgMusic.play().catch(() => { console.log("Autoplay bloqueado"); }); });
 
-let score = 0;
-let basketPosition = gameArea.offsetWidth/2 - basket.offsetWidth/2;
-let objectsInterval;
+        const fruitSound = new Audio('sounds/fruit_collect.wav'); fruitSound.volume = 0.7;
+        const gameOverSound = new Audio('sounds/game_over.wav'); gameOverSound.volume = 0.8;
+        const startSound = new Audio('sounds/start_game.mp3'); startSound.volume = 0.9;
 
-const fruits = ['🍎','🍌','🍉','🍇','🍓','🥭'];
-const fastFoods = ['🍔','🍟','🌭','🍕','🍩','🍪'];
+        let score = 0;
+        let basketPosition = gameArea.offsetWidth / 2 - basket.offsetWidth / 2;
+        let objectsInterval;
+        let spawnRate = 600;
 
-function createFallingObject() {
-    const obj = document.createElement('div');
-    obj.classList.add('fallingObject');
-    const isFast = Math.random()<0.45;
-    obj.classList.add(isFast?'fastFood':'fruit');
-    obj.textContent = isFast? fastFoods[Math.floor(Math.random()*fastFoods.length)] : fruits[Math.floor(Math.random()*fruits.length)];
-    const leftPos = Math.random() * (gameArea.clientWidth - 60);
-    obj.style.left = leftPos + 'px';
-    const speed = 2 + Math.random()*2;
-    obj.dataset.speed = speed;
-    gameArea.appendChild(obj);
+        const fruits = ['🍎','🍌','🍉','🍇','🍓','🥭'];
+        const fastFoods = ['🍔','🍟','🌭','🍕','🍩','🍪'];
 
-    const fall = () => {
-        let top = parseFloat(obj.style.transform.replace('translateY(','').replace('px)','')) || -80;
-        top += parseFloat(obj.dataset.speed);
-        obj.style.transform = `translateY(${top}px)`;
+        function createFallingObject() {
+            const obj = document.createElement('div');
+            obj.classList.add('fallingObject');
+            const fastChance = Math.min(0.45 + score / 200, 0.7);
+            const isFast = Math.random() < fastChance;
+            obj.classList.add(isFast ? 'fastFood' : 'fruit');
+            obj.textContent = isFast ? fastFoods[Math.floor(Math.random()*fastFoods.length)] : fruits[Math.floor(Math.random()*fruits.length)];
+            const leftPos = Math.random()*(gameArea.clientWidth - 60);
+            obj.style.left = leftPos+'px';
+            const speed = 2 + Math.random()*2 + score/50;
+            obj.dataset.speed = speed;
+            gameArea.appendChild(obj);
 
-        const basketRect = basket.getBoundingClientRect();
-        const objRect = obj.getBoundingClientRect();
-        const gameRect = gameArea.getBoundingClientRect();
+            const fall = () => {
+                let top = parseFloat(obj.style.transform.replace('translateY(','').replace('px)','')) || -80;
+                top += parseFloat(obj.dataset.speed);
+                obj.style.transform = `translateY(${top}px)`;
 
-        if(objRect.bottom>basketRect.top && objRect.top<basketRect.bottom && objRect.right>basketRect.left && objRect.left<basketRect.right){
-            if(obj.classList.contains('fruit')){
-                score+=10;
-                scoreDisplay.textContent=`Pontuação: ${score}`;
-                scoreDisplay.style.transform='scale(1.4)';
-                setTimeout(()=>scoreDisplay.style.transform='scale(1)',200);
-                obj.remove();
-                return;
-            } else if(obj.classList.contains('fastFood')){
-                gameArea.classList.add('shake');
-                setTimeout(()=>{
-                    gameArea.classList.remove('shake');
-                    endGame();
-                },500);
-                obj.remove();
-                return;
+                const basketRect = basket.getBoundingClientRect();
+                const objRect = obj.getBoundingClientRect();
+                const gameRect = gameArea.getBoundingClientRect();
+
+                if(objRect.bottom > basketRect.top && objRect.top < basketRect.bottom){
+                    const objCenterX = objRect.left + objRect.width/2;
+                    if(objCenterX > basketRect.left && objCenterX < basketRect.right){
+                        if(obj.classList.contains('fruit')){
+                            score+=10;
+                            scoreDisplay.textContent = `Pontuação: ${score}`;
+                            scoreDisplay.style.transform='scale(1.4)';
+                            setTimeout(()=>scoreDisplay.style.transform='scale(1)',200);
+                            fruitSound.currentTime=0;
+                            fruitSound.play();
+                            obj.remove();
+                            return;
+                        }else if(obj.classList.contains('fastFood')){
+                            gameArea.classList.add('shake');
+                            setTimeout(()=>{gameArea.classList.remove('shake'); endGame();},500);
+                            gameOverSound.currentTime=0;
+                            gameOverSound.play();
+                            obj.remove();
+                            return;
+                        }
+                    }
+                }
+
+                if(objRect.top > gameRect.bottom){ obj.remove(); return; }
+                requestAnimationFrame(fall);
             }
+            requestAnimationFrame(fall);
         }
 
-        if(objRect.top > gameRect.bottom){
-            obj.remove();
-            return;
+        function adjustDifficulty(){
+            clearInterval(objectsInterval);
+            const newRate = Math.max(200,600-score);
+            objectsInterval=setInterval(createFallingObject,newRate);
         }
-        requestAnimationFrame(fall);
-    }
-    requestAnimationFrame(fall);
-}
 
-function startGame(){
-    startScreen.style.opacity=0;
-    setTimeout(()=>{
-        startScreen.style.display='none';
-        basket.style.opacity=1;
-        score=0;
-        scoreDisplay.textContent=`Pontuação: ${score}`;
-        objectsInterval=setInterval(createFallingObject,600);
-    },500);
-}
+        function startGame(){
+            startScreen.style.opacity=0;
+            bgMusic.pause(); startSound.currentTime=0; startSound.play();
 
-function endGame(){
-    clearInterval(objectsInterval);
-    objectsInterval=null;
-    document.querySelectorAll('.fallingObject').forEach(o=>o.remove());
-    basket.style.opacity=0;
-    gameOverScreen.style.display='flex';
-}
+            setTimeout(()=>{
+                startScreen.style.display='none';
+                basket.style.opacity=1;
+                score=0;
+                scoreDisplay.textContent=`Pontuação: ${score}`;
+                spawnRate=600;
+                objectsInterval=setInterval(createFallingObject,spawnRate);
+                bgMusic.currentTime=0; bgMusic.play();
+            },2000);
+        }
 
-startBtn.addEventListener('click',startGame);
-retryBtn.addEventListener('click',()=>{
-    gameOverScreen.style.display='none';
-    startScreen.style.opacity=1;
-    startScreen.style.display='flex';
-});
+        function endGame(){
+            clearInterval(objectsInterval);
+            objectsInterval=null;
+            document.querySelectorAll('.fallingObject').forEach(o=>o.remove());
+            basket.style.opacity=0;
+            gameOverScreen.style.display='flex';
+            bgMusic.pause();
+            gameOverSound.currentTime=0;
+            gameOverSound.play();
+        }
 
-document.addEventListener('keydown',e=>{
-    if(e.key==='ArrowLeft') basketPosition-=20;
-    if(e.key==='ArrowRight') basketPosition+=20;
-    if(basketPosition<0) basketPosition=0;
-    if(basketPosition>gameArea.clientWidth-basket.offsetWidth) basketPosition=gameArea.clientWidth-basket.offsetWidth;
-    basket.style.left=basketPosition+'px';
-});
+        startBtn.addEventListener('click',startGame);
+        exitBtn.addEventListener('click',()=>{window.location.href='index.html';});
+        retryBtn.addEventListener('click',()=>{
+            gameOverScreen.style.display='none';
+            startScreen.style.opacity=1;
+            startScreen.style.display='flex';
+        });
 
-gameArea.addEventListener('touchmove',e=>{
-    const touchX=e.touches[0].clientX-gameArea.getBoundingClientRect().left;
-    basketPosition=touchX-basket.offsetWidth/2;
-    if(basketPosition<0) basketPosition=0;
-    if(basketPosition>gameArea.clientWidth-basket.offsetWidth) basketPosition=gameArea.clientWidth-basket.offsetWidth;
-    basket.style.left=basketPosition+'px';
-});
-</script>
+        document.addEventListener('keydown',e=>{
+            if(e.key==='ArrowLeft') basketPosition-=20;
+            if(e.key==='ArrowRight') basketPosition+=20;
+            if(basketPosition<0) basketPosition=0;
+            if(basketPosition>gameArea.clientWidth-basket.offsetWidth) basketPosition=gameArea.clientWidth-basket.offsetWidth;
+            basket.style.left=basketPosition+'px';
+        });
+
+        gameArea.addEventListener('touchmove',e=>{
+            const touchX=e.touches[0].clientX - gameArea.getBoundingClientRect().left;
+            basketPosition = touchX - basket.offsetWidth/2;
+            if(basketPosition<0) basketPosition=0;
+            if(basketPosition>gameArea.clientWidth-basket.offsetWidth) basketPosition=gameArea.clientWidth-basket.offsetWidth;
+            basket.style.left=basketPosition+'px';
+        });
+
+        // Ajusta dificuldade sempre que a pontuação aumenta
+        const observer = new MutationObserver(adjustDifficulty);
+        observer.observe(scoreDisplay, { childList:true });
+    </script>
 </body>
 </html>
