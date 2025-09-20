@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Diabetech - Secundário</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Comic Sans MS';
+            src: url('fonts/ComicSansMS.ttf') format('truetype');
+        }
+
+        :root {
+            --accent: #48B2E8;
+            --card-bg: #fff;
+            --muted-bg: #f9f9f9;
+            --radius: 12px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Comic Sans MS', sans-serif;
+            background: #fff;
+            color: #000
+        }
+
+        header {
+            background: var(--accent);
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 0 0 18px 18px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        header h1 {
+            margin: 0;
+            color: #fff;
+            font-size: 2.2rem
+        }
+
+        .section {
+            padding: 28px 18px;
+            text-align: center;
+        }
+
+        .card {
+            max-width: 1000px;
+            margin: 0 auto 18px;
+            padding: 20px;
+            background: var(--muted-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            text-align: justify;
+            font-size: 1.02rem;
+            line-height: 1.6;
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            margin: 0 0 12px
+        }
+
+        .grid-two {
+            display: flex;
+            gap: 22px;
+            justify-content: center;
+            align-items: start;
+            max-width: 1000px;
+            margin: 14px auto;
+            flex-wrap: wrap;
+        }
+
+        .mini-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 18px 16px;
+            width: 320px;
+            min-width: 260px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .mini-card h4 {
+            font-size: 1.5rem;
+            margin: 0 0 10px;
+            font-weight: 700;
+        }
+
+        .mini-card p {
+            margin: 0;
+            font-size: 1.02rem;
+            line-height: 1.5;
+        }
+
+        .mini-card img {
+            max-width: 60px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 880px) {
+            .grid-two {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mini-card {
+                width: 92%;
+                max-width: 560px;
+            }
+
+            header h1 {
+                font-size: 1.9rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 20px;
+            transition: 0.25s
+        }
+
+        .back:hover {
+            background: #2b8ec2
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>DIABETECH</h1>
+    </header>
+
+    <!-- Intro / definição -->
+    <section class="section">
+        <h2>Diabetes Secundário</h2>
+        <div class="card">
+            <p><strong>A diabetes secundária</strong> é um tipo de diabetes causado por outra condição de saúde, como disfunções endócrinas, distúrbios pancreáticos 
+            (como pancreatite crônica, que leva ao diabetes tipo 3c), hemocromatose ou síndrome do ovário policístico (SOP), ou pela indução de certos medicamentos. 
+            Ao contrário do diabetes tipo 1 e 2, que são condições primárias, a diabetes secundária surge como resultado de outra doença preexistente ou uso de fármacos, 
+            podendo ser facilmente diagnosticada em testes de função pancreática ou exames de imagem.</p>
+        </div>
+    </section>
+
+    <!-- Atenção + Tratamento -->
+    <section class="section">
+        <h2>Atenção e Tratamento</h2>
+        <div class="grid-two">
+            <div class="mini-card">
+                <img src="img/boneco.png" alt="Ícone atenção bonequinho">
+                <h4>Reconhecer a Causa</h4>
+                <p>A diabetes secundária é causada por uma condição subjacente, como uma doença do pâncreas, que afeta a produção ou a ação da insulina.<br><br>
+                <strong>Consultar um médico:</strong> Se você notar estes sintomas, é importante procurar um médico para um diagnóstico e tratamento adequados, 
+                especialmente se houver alguma condição pré-existente que possa levar à diabetes.</p>
+            </div>
+            <div class="mini-card">
+                <img src="img/atencao.png" alt="Ícone atenção alerta">
+                <h4>Como Tratar</h4>
+                <p>O tratamento passa não só pelo controle glicêmico (sempre com estilo de vida saudável e o tratamento necessário), como pelo controle da doença de base. 
+                De entre as várias doenças que falamos, os tratamentos são muito variados, podendo ser médicos ou cirúrgicos. 
+                A avaliação pelo médico é fundamental para que seja indicado o tratamento mais adequado.</p>
+            </div>
+        </div>
+    </section>
+
+    <div style="text-align:center;margin-bottom:36px">
+        <a class="back" href="index.html">⬅ Voltar</a>
+    </div>
+
+    <footer style="text-align:center;padding:14px;background:#f0f0f0">
+        <small>© 2025 Diabetech</small>
+    </footer>
+</body>
+
+</html>

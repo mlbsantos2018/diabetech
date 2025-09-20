@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Diabetech - Insulina</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Comic Sans MS';
+            src: url('fonts/ComicSansMS.ttf') format('truetype');
+        }
+
+        :root {
+            --accent: #48B2E8;
+            --card-bg: #fff;
+            --muted-bg: #f9f9f9;
+            --radius: 12px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Comic Sans MS', sans-serif;
+            background: #fff;
+            color: #000
+        }
+
+        header {
+            background: var(--accent);
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 0 0 18px 18px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        header h1 {
+            margin: 0;
+            color: #fff;
+            font-size: 2.2rem
+        }
+
+        .section {
+            padding: 28px 18px;
+            text-align: center;
+        }
+
+        .card {
+            max-width: 1000px;
+            margin: 0 auto 18px;
+            padding: 20px;
+            background: var(--muted-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            text-align: justify;
+            font-size: 1.02rem;
+            line-height: 1.6;
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            margin: 0 0 12px
+        }
+
+        .grid-two {
+            display: flex;
+            gap: 22px;
+            justify-content: center;
+            align-items: start;
+            max-width: 1000px;
+            margin: 14px auto;
+            flex-wrap: wrap;
+        }
+
+        .mini-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 18px 16px;
+            width: 320px;
+            min-width: 240px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .mini-card h4 {
+            font-size: 1.5rem;
+            margin: 0 0 10px;
+            font-weight: 700;
+        }
+
+        .mini-card p {
+            margin: 0;
+            font-size: 1.02rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 880px) {
+            .grid-two {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mini-card {
+                width: 92%;
+                max-width: 560px;
+            }
+
+            header h1 {
+                font-size: 1.9rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 20px;
+            transition: 0.25s
+        }
+
+        .back:hover {
+            background: #2b8ec2
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>DIABETECH</h1>
+    </header>
+
+    <!-- O que é a insulina -->
+    <section class="section">
+        <h2>Insulina</h2>
+        <div class="card">
+            <h3 style="text-align:center">Você sabe para que serve a insulina?</h3>
+            <p>
+                A insulina serve para ajudar o corpo a controlar o açúcar no sangue (glicose), permitindo que ele seja
+                absorvido pelas células para ser usado como energia ou armazenado. É essencial no tratamento do diabetes,
+                sendo aplicada através de injeções, canetas ou bombas em casos de produção insuficiente ou má utilização
+                pelo organismo.
+            </p>
+            <p>
+                Sua função principal é a regulação da glicose, reduzindo seus níveis no sangue após as refeições e
+                facilitando a captação da glicose por tecidos como o fígado, músculos e gordura.
+            </p>
+        </div>
+    </section>
+
+    <!-- Tipos de insulina -->
+    <section class="section">
+        <h2>Tipos de Insulina</h2>
+        <div class="grid-two">
+            <div class="mini-card">
+                <h4>Lispro / Aspart</h4>
+                <p>
+                    - Ação muito rápida<br>
+                    - Duração de 3 a 5 horas<br>
+                    - Início de ação entre 10 a 15 minutos
+                </p>
+            </div>
+            <div class="mini-card">
+                <h4>Regular</h4>
+                <p>
+                    - Ação rápida<br>
+                    - Duração de 6 a 7 horas<br>
+                    - Início de ação em 30 minutos
+                </p>
+            </div>
+            <div class="mini-card">
+                <h4>NPH</h4>
+                <p>
+                    - Ação intermediária<br>
+                    - Duração de até 16 horas<br>
+                    - Início de ação entre 1 a 3 horas
+                </p>
+            </div>
+            <div class="mini-card">
+                <h4>Lantus / Levemir</h4>
+                <p>
+                    - Ação lenta e sem pico<br>
+                    - Duração de até 24 horas<br>
+                    - Início de ação entre 1 a 3 horas
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div style="text-align:center;margin-bottom:36px">
+        <a class="back" href="index.html">⬅ Voltar</a>
+    </div>
+
+    <footer style="text-align:center;padding:14px;background:#f0f0f0">
+        <small>© 2025 Diabetech</small>
+    </footer>
+</body>
+
+</html>
