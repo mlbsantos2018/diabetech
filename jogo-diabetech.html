@@ -66,10 +66,9 @@
         #basket {
             position: absolute;
             bottom: 20px;
-            left: 50%;
+            left: 0;
             width: 70px;
             height: 50px;
-            transform: translateX(-50%);
             opacity: 0;
             transition: opacity 0.5s ease;
         }
@@ -139,12 +138,21 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 30;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        #gameOverScreen.show {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
         }
 
         #gameOverScreen img {
@@ -180,6 +188,56 @@
 
         .shake { animation: shake 0.5s; }
 
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFade 0.6s forwards;
+        }
+
+        @keyframes particleFade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.3) translateY(-30px); }
+        }
+
+        .pop { animation: popScale 0.2s; }
+
+        @keyframes popScale {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .fastFade {
+            animation: fastFadeOut 0.5s forwards;
+        }
+
+        @keyframes fastFadeOut {
+            0% { opacity: 1; transform: rotate(0deg) scale(1); }
+            100% { opacity: 0; transform: rotate(180deg) scale(0); }
+        }
+
+        #comboText {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: yellow;
+            text-shadow: 2px 2px 5px black;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+            font-family: 'Comic Sans MS', sans-serif;
+        }
+
+        #comboText.show {
+            opacity: 1;
+            transform: scale(1.3);
+        }
+
         @media(max-width:500px) {
             #gameArea { height: 500px; }
             #basket { width: 60px; height: 45px; }
@@ -198,24 +256,18 @@
     <section class="section">
         <div id="gameArea">
             <div id="score">Pontuação: 0</div>
+            <div id="comboText"></div>
             <img id="basket" src="img/cesta.png" alt="Cesta">
 
             <div id="startScreen">
-                <div style="
-                    position: absolute;
-                    bottom: 40px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 100%;
-                    gap: 0px;
-                ">
+                <div style="position:absolute;bottom:40px;display:flex;justify-content:center;align-items:center;width:100%;gap:0px;">
                     <button id="startBtn">
                         <img src="img/startButton.png" alt="Iniciar Jogo" style="width: 180px; height: auto;">
                     </button>
 
                     <button id="exitBtn">
-                        <img src="img/exitButton.png" alt="Sair do Jogo" style="width: 180px; height: auto; filter: brightness(0.7);">
+                        <img src="img/exitButton.png" alt="Sair do Jogo"
+                            style="width: 180px; height: auto; filter: brightness(0.7);">
                     </button>
                 </div>
             </div>
@@ -240,23 +292,48 @@
         const exitBtn = document.getElementById('exitBtn');
         const gameOverScreen = document.getElementById('gameOverScreen');
         const retryBtn = document.getElementById('retryBtn');
+        const comboText = document.getElementById('comboText');
 
         // Sons
-        const bgMusic = new Audio('sounds/background_music.mp3');
-        bgMusic.loop = true; bgMusic.volume = 0.3;
+        const bgMusic = new Audio('sounds/background_music.mp3'); bgMusic.loop = true; bgMusic.volume = 0.3;
         window.addEventListener('load', () => { bgMusic.play().catch(() => { console.log("Autoplay bloqueado"); }); });
-
         const fruitSound = new Audio('sounds/fruit_collect.wav'); fruitSound.volume = 0.7;
         const gameOverSound = new Audio('sounds/game_over.wav'); gameOverSound.volume = 0.8;
         const startSound = new Audio('sounds/start_game.mp3'); startSound.volume = 0.9;
+        const bomSound = new Audio('sounds/bom.mp3'); const incrivelSound = new Audio('sounds/incrivel.mp3'); const lendarioSound = new Audio('sounds/lendario.mp3');
 
         let score = 0;
-        let basketPosition = gameArea.offsetWidth / 2 - basket.offsetWidth / 2;
+        let basketPosition = (gameArea.clientWidth - basket.offsetWidth) / 2;
+        basket.style.left = basketPosition + 'px';
         let objectsInterval;
         let spawnRate = 600;
+        let combo = 0;
+        let comboTimeout;
 
-        const fruits = ['🍎','🍌','🍉','🍇','🍓','🥭'];
-        const fastFoods = ['🍔','🍟','🌭','🍕','🍩','🍪'];
+        const fruits = ['🍎', '🍌', '🍉', '🍇', '🍓', '🥭'];
+        const fastFoods = ['🍔', '🍟', '🌭', '🍕', '🍩', '🍪'];
+
+        function spawnParticles(x, y) {
+            for (let i = 0; i < 6; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                p.style.left = x + 'px';
+                p.style.top = y + 'px';
+                p.style.background = `hsl(${Math.random() * 360}, 80%, 60%)`;
+                gameArea.appendChild(p);
+                setTimeout(() => p.remove(), 600);
+            }
+        }
+
+        function showCombo(text) {
+            comboText.textContent = text;
+            comboText.classList.add('show');
+            // toca som
+            if(text === "Bom!") bomSound.play();
+            if(text === "Incrível!") incrivelSound.play();
+            if(text === "Lendário!") lendarioSound.play();
+            setTimeout(() => comboText.classList.remove('show'), 600);
+        }
 
         function createFallingObject() {
             const obj = document.createElement('div');
@@ -264,15 +341,15 @@
             const fastChance = Math.min(0.45 + score / 200, 0.7);
             const isFast = Math.random() < fastChance;
             obj.classList.add(isFast ? 'fastFood' : 'fruit');
-            obj.textContent = isFast ? fastFoods[Math.floor(Math.random()*fastFoods.length)] : fruits[Math.floor(Math.random()*fruits.length)];
-            const leftPos = Math.random()*(gameArea.clientWidth - 60);
-            obj.style.left = leftPos+'px';
-            const speed = 2 + Math.random()*2 + score/50;
+            obj.textContent = isFast ? fastFoods[Math.floor(Math.random() * fastFoods.length)] : fruits[Math.floor(Math.random() * fruits.length)];
+            const leftPos = Math.random() * (gameArea.clientWidth - 60);
+            obj.style.left = leftPos + 'px';
+            const speed = 2 + Math.random() * 2 + score / 50;
             obj.dataset.speed = speed;
             gameArea.appendChild(obj);
 
             const fall = () => {
-                let top = parseFloat(obj.style.transform.replace('translateY(','').replace('px)','')) || -80;
+                let top = parseFloat(obj.style.transform.replace('translateY(', '').replace('px)', '')) || -80;
                 top += parseFloat(obj.dataset.speed);
                 obj.style.transform = `translateY(${top}px)`;
 
@@ -280,94 +357,108 @@
                 const objRect = obj.getBoundingClientRect();
                 const gameRect = gameArea.getBoundingClientRect();
 
-                if(objRect.bottom > basketRect.top && objRect.top < basketRect.bottom){
-                    const objCenterX = objRect.left + objRect.width/2;
-                    if(objCenterX > basketRect.left && objCenterX < basketRect.right){
-                        if(obj.classList.contains('fruit')){
-                            score+=10;
+                if (objRect.bottom > basketRect.top && objRect.top < basketRect.bottom) {
+                    const objCenterX = objRect.left + objRect.width / 2;
+                    if (objCenterX > basketRect.left && objCenterX < basketRect.right) {
+                        if (obj.classList.contains('fruit')) {
+                            score += 10;
                             scoreDisplay.textContent = `Pontuação: ${score}`;
-                            scoreDisplay.style.transform='scale(1.4)';
-                            setTimeout(()=>scoreDisplay.style.transform='scale(1)',200);
-                            fruitSound.currentTime=0;
+                            scoreDisplay.style.transform = 'scale(1.4)';
+                            setTimeout(() => scoreDisplay.style.transform = 'scale(1)', 200);
+                            fruitSound.currentTime = 0;
                             fruitSound.play();
+
+                            basket.classList.add('pop');
+                            setTimeout(() => basket.classList.remove('pop'), 200);
+                            spawnParticles(objRect.left + objRect.width / 2, objRect.top);
+
+                            combo++;
+                            clearTimeout(comboTimeout);
+                            comboTimeout = setTimeout(() => combo = 0, 1500);
+                            if (combo === 3) showCombo("Bom!");
+                            if (combo === 5) showCombo("Incrível!");
+                            if (combo === 8) showCombo("Lendário!");
+
                             obj.remove();
                             return;
-                        }else if(obj.classList.contains('fastFood')){
+                        } else if (obj.classList.contains('fastFood')) {
+                            obj.classList.add('fastFade');
+                            setTimeout(() => obj.remove(), 500);
                             gameArea.classList.add('shake');
-                            setTimeout(()=>{gameArea.classList.remove('shake'); endGame();},500);
-                            gameOverSound.currentTime=0;
+                            setTimeout(() => { gameArea.classList.remove('shake'); endGame(); }, 500);
+                            gameOverSound.currentTime = 0;
                             gameOverSound.play();
-                            obj.remove();
                             return;
                         }
                     }
                 }
 
-                if(objRect.top > gameRect.bottom){ obj.remove(); return; }
+                if (objRect.top > gameRect.bottom) { obj.remove(); return; }
                 requestAnimationFrame(fall);
             }
             requestAnimationFrame(fall);
         }
 
-        function adjustDifficulty(){
+        function adjustDifficulty() {
             clearInterval(objectsInterval);
-            const newRate = Math.max(200,600-score);
-            objectsInterval=setInterval(createFallingObject,newRate);
+            const newRate = Math.max(200, 600 - score);
+            objectsInterval = setInterval(createFallingObject, newRate);
         }
 
-        function startGame(){
-            startScreen.style.opacity=0;
-            bgMusic.pause(); startSound.currentTime=0; startSound.play();
+        function startGame() {
+            startScreen.style.opacity = 0;
+            bgMusic.pause(); startSound.currentTime = 0; startSound.play();
 
-            setTimeout(()=>{
-                startScreen.style.display='none';
-                basket.style.opacity=1;
-                score=0;
-                scoreDisplay.textContent=`Pontuação: ${score}`;
-                spawnRate=600;
-                objectsInterval=setInterval(createFallingObject,spawnRate);
-                bgMusic.currentTime=0; bgMusic.play();
-            },2000);
+            setTimeout(() => {
+                startScreen.style.display = 'none';
+                basket.style.opacity = 1;
+                score = 0;
+                scoreDisplay.textContent = `Pontuação: ${score}`;
+                spawnRate = 600;
+                combo = 0;
+                objectsInterval = setInterval(createFallingObject, spawnRate);
+                bgMusic.currentTime = 0; bgMusic.play();
+            }, 2000);
         }
 
-        function endGame(){
+        function endGame() {
             clearInterval(objectsInterval);
-            objectsInterval=null;
-            document.querySelectorAll('.fallingObject').forEach(o=>o.remove());
-            basket.style.opacity=0;
-            gameOverScreen.style.display='flex';
+            objectsInterval = null;
+            document.querySelectorAll('.fallingObject').forEach(o => o.remove());
+            basket.style.opacity = 0;
+            gameOverScreen.classList.add('show');
             bgMusic.pause();
-            gameOverSound.currentTime=0;
+            gameOverSound.currentTime = 0;
             gameOverSound.play();
         }
 
-        startBtn.addEventListener('click',startGame);
-        exitBtn.addEventListener('click',()=>{window.location.href='index.html';});
-        retryBtn.addEventListener('click',()=>{
-            gameOverScreen.style.display='none';
-            startScreen.style.opacity=1;
-            startScreen.style.display='flex';
+        startBtn.addEventListener('click', startGame);
+        exitBtn.addEventListener('click', () => { window.location.href = 'index.html'; });
+        retryBtn.addEventListener('click', () => {
+            gameOverScreen.classList.remove('show');
+            startScreen.style.opacity = 1;
+            startScreen.style.display = 'flex';
         });
 
-        document.addEventListener('keydown',e=>{
-            if(e.key==='ArrowLeft') basketPosition-=20;
-            if(e.key==='ArrowRight') basketPosition+=20;
-            if(basketPosition<0) basketPosition=0;
-            if(basketPosition>gameArea.clientWidth-basket.offsetWidth) basketPosition=gameArea.clientWidth-basket.offsetWidth;
-            basket.style.left=basketPosition+'px';
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowLeft') basketPosition -= 20;
+            if (e.key === 'ArrowRight') basketPosition += 20;
+            if (basketPosition < 0) basketPosition = 0;
+            if (basketPosition > gameArea.clientWidth - basket.offsetWidth) basketPosition = gameArea.clientWidth - basket.offsetWidth;
+            basket.style.left = basketPosition + 'px';
         });
 
-        gameArea.addEventListener('touchmove',e=>{
-            const touchX=e.touches[0].clientX - gameArea.getBoundingClientRect().left;
-            basketPosition = touchX - basket.offsetWidth/2;
-            if(basketPosition<0) basketPosition=0;
-            if(basketPosition>gameArea.clientWidth-basket.offsetWidth) basketPosition=gameArea.clientWidth-basket.offsetWidth;
-            basket.style.left=basketPosition+'px';
+        gameArea.addEventListener('touchmove', e => {
+            const touchX = e.touches[0].clientX - gameArea.getBoundingClientRect().left;
+            basketPosition = touchX - basket.offsetWidth / 2;
+            if (basketPosition < 0) basketPosition = 0;
+            if (basketPosition > gameArea.clientWidth - basket.offsetWidth) basketPosition = gameArea.clientWidth - basket.offsetWidth;
+            basket.style.left = basketPosition + 'px';
         });
 
-        // Ajusta dificuldade sempre que a pontuação aumenta
         const observer = new MutationObserver(adjustDifficulty);
-        observer.observe(scoreDisplay, { childList:true });
+        observer.observe(scoreDisplay, { childList: true });
     </script>
 </body>
+
 </html>
