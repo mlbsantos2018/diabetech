@@ -178,15 +178,34 @@
         }
 
         @keyframes shake {
-            0% { transform: translate(0px, 0px); }
-            20% { transform: translate(-10px, 0); }
-            40% { transform: translate(10px, 0); }
-            60% { transform: translate(-10px, 0); }
-            80% { transform: translate(10px, 0); }
-            100% { transform: translate(0px, 0); }
+            0% {
+                transform: translate(0px, 0px);
+            }
+
+            20% {
+                transform: translate(-10px, 0);
+            }
+
+            40% {
+                transform: translate(10px, 0);
+            }
+
+            60% {
+                transform: translate(-10px, 0);
+            }
+
+            80% {
+                transform: translate(10px, 0);
+            }
+
+            100% {
+                transform: translate(0px, 0);
+            }
         }
 
-        .shake { animation: shake 0.5s; }
+        .shake {
+            animation: shake 0.5s;
+        }
 
         .particle {
             position: absolute;
@@ -198,16 +217,33 @@
         }
 
         @keyframes particleFade {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0.3) translateY(-30px); }
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(0.3) translateY(-30px);
+            }
         }
 
-        .pop { animation: popScale 0.2s; }
+        .pop {
+            animation: popScale 0.2s;
+        }
 
         @keyframes popScale {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         .fastFade {
@@ -215,15 +251,23 @@
         }
 
         @keyframes fastFadeOut {
-            0% { opacity: 1; transform: rotate(0deg) scale(1); }
-            100% { opacity: 0; transform: rotate(180deg) scale(0); }
+            0% {
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: rotate(180deg) scale(0);
+            }
         }
 
         #comboText {
             position: absolute;
-            top: 60px;
-            right: 20px;
-            font-size: 24px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
             font-weight: bold;
             color: yellow;
             text-shadow: 2px 2px 5px black;
@@ -235,15 +279,32 @@
 
         #comboText.show {
             opacity: 1;
-            transform: scale(1.3);
+            transform: translate(-50%, -50%) scale(1.5);
         }
 
         @media(max-width:500px) {
-            #gameArea { height: 500px; }
-            #basket { width: 60px; height: 45px; }
-            .fallingObject { width: 50px; height: 50px; font-size: 28px; }
-            #startScreen button img { width: 150px; }
-            #gameOverScreen img { max-width: 80%; }
+            #gameArea {
+                height: 500px;
+            }
+
+            #basket {
+                width: 60px;
+                height: 45px;
+            }
+
+            .fallingObject {
+                width: 50px;
+                height: 50px;
+                font-size: 28px;
+            }
+
+            #startScreen button img {
+                width: 150px;
+            }
+
+            #gameOverScreen img {
+                max-width: 80%;
+            }
         }
     </style>
 </head>
@@ -260,7 +321,8 @@
             <img id="basket" src="img/cesta.png" alt="Cesta">
 
             <div id="startScreen">
-                <div style="position:absolute;bottom:40px;display:flex;justify-content:center;align-items:center;width:100%;gap:0px;">
+                <div
+                    style="position:absolute;bottom:40px;display:flex;justify-content:center;align-items:center;width:100%;gap:0px;">
                     <button id="startBtn">
                         <img src="img/startButton.png" alt="Iniciar Jogo" style="width: 180px; height: auto;">
                     </button>
@@ -329,9 +391,9 @@
             comboText.textContent = text;
             comboText.classList.add('show');
             // toca som
-            if(text === "Bom!") bomSound.play();
-            if(text === "Incrível!") incrivelSound.play();
-            if(text === "Lendário!") lendarioSound.play();
+            if (text === "Bom!") bomSound.play();
+            if (text === "Incrível!") incrivelSound.play();
+            if (text === "Lendário!") lendarioSound.play();
             setTimeout(() => comboText.classList.remove('show'), 600);
         }
 
